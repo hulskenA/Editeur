@@ -1,4 +1,4 @@
-package fil.coo;
+package fil.coo.checker.util;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -6,7 +6,7 @@ import java.io.FilenameFilter;
 public class FileNameFilterClass implements FilenameFilter {
 
 	public boolean accept(File dir, String name) {
-		return name.endsWith("class");
+		return name.endsWith(".class");
 	}
 
 }
