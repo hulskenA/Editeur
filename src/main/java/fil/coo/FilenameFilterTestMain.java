@@ -1,6 +1,7 @@
 package fil.coo;
 
 import java.io.File;
+import fil.coo.checker.util.FileNameFilterClass;
 
 
 public class FilenameFilterTestMain {

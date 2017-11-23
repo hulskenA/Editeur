@@ -1,13 +1,15 @@
 package fil.coo.checker.util;
 
-public class FileEvent extends EventObject {
+import java.awt.event.ActionEvent;
+
+public class FileEvent extends ActionEvent {
   protected String file;
 
   public FileEvent(String file) {
-    this.file = file;
+	  this.file = file;
   }
 
   public String getFile() {
-    return this.file;
+	  return this.file;
   }
 }

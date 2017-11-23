@@ -1,17 +1,27 @@
 package fil.coo.checker;
 
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.List;
+
+import fil.coo.checker.util.FileEvent;
+import fil.coo.checker.util.FileNameFilterClass;
+
+import java.util.ArrayList;
 
 
 public class FileChecker {
 
   protected File folder;
-  protected FileNameFilter filter;
+  protected FilenameFilter filter;
 
   protected List<FileListener> listeners;
   protected List<String> files;
 
-  public FileChecker(FileNameFilter filter, File folder) {
+  public FileChecker(FilenameFilter filter, File folder) {
     this.filter = filter;
     this.folder = folder;
 
@@ -24,11 +34,11 @@ public class FileChecker {
   }
 
   public void removeListener(FileListener listener) {
-    this.listener.remove(listener);
+    this.listeners.remove(listener);
   }
 
   public void fireFileAdded(String file) {
-    List<FileListener> listenersCopy = new ArrayList<FileListener>().addAll(this.listeners);
+    List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
     for (FileListener listener : listenersCopy)
       listener.fileAdded(new FileEvent(file));
   }
@@ -43,14 +53,14 @@ public class FileChecker {
   }
 
 
-  public static class ActionListenerChecker implements ActionListener {
-    public void actionPerformed(ActionEvent e) {
-      for (String s : folder.list(new FileNameFilterC()))
-        if (!FileChecker.this.files.contains(s)) {
-          FileChecker.this.files.add(s);
-          FileChecker.this.fireFileAdded(s);
-        }
-    }
+  public class ActionListenerChecker implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    for (String s : folder.list(new FileNameFilterClass()))
+	    	if (!FileChecker.this.files.contains(s)) {
+	    		FileChecker.this.files.add(s);
+	          	FileChecker.this.fireFileAdded(s);
+	    	}
+	}
   }
 
 }
