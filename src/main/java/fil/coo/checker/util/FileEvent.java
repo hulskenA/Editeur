@@ -1,15 +1,10 @@
 package fil.coo.checker.util;
 
-import java.awt.event.ActionEvent;
+import java.util.EventObject;;
 
-public class FileEvent extends ActionEvent {
-  protected String file;
-
-  public FileEvent(String file) {
-	  this.file = file;
-  }
-
-  public String getFile() {
-	  return this.file;
-  }
+@SuppressWarnings("serial")
+public class FileEvent extends EventObject {
+	public FileEvent(String file) {
+		super (file);
+	}
 }
