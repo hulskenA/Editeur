@@ -22,34 +22,33 @@ public class FileChecker {
   protected List<String> files;
 
   public FileChecker(FilenameFilter filter, File folder) {
-    this.filter = filter;
-    this.folder = folder;
+	  this.filter = filter;
+	  this.folder = folder;
 
-    this.listeners = new ArrayList<FileListener>();
-    this.files = new ArrayList<String>();
+	  this.listeners = new ArrayList<FileListener>();
+	  this.files = new ArrayList<String>();
   }
 
   public void addListener(FileListener listener) {
-    this.listeners.add(listener);
+	  this.listeners.add(listener);
   }
 
   public void removeListener(FileListener listener) {
-    this.listeners.remove(listener);
+	  this.listeners.remove(listener);
   }
 
   public void fireFileAdded(String file) {
-    List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
-    for (FileListener listener : listenersCopy)
-      listener.fileAdded(new FileEvent(file));
+	  List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
+	  for (FileListener listener : listenersCopy)
+		  listener.fileAdded(new FileEvent(file));
+	  this.files.add(file);
   }
 
   public void startChecker() {
-    int delay = 10000; // toutes les 10 secondes
-		ActionListener task = new ActionListenerChecker();
-		Timer timer = new Timer(delay, task);
-		timer.start();
-
-		while (true);
+	  int delay = 10000; // toutes les 10 secondes
+	  ActionListener task = new ActionListenerChecker();
+	  Timer timer = new Timer(delay, task);
+	  timer.start();
   }
 
 
