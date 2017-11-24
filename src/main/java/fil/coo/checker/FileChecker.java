@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import fil.coo.checker.util.FileEvent;
-import fil.coo.checker.util.FileNameFilterClass;
+import fil.coo.plugin.PluginFilter;
 
 
 public class FileChecker {
@@ -58,7 +58,7 @@ public class FileChecker {
 
   public class ActionListenerChecker implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
-          FilenameFilter filter = new FileNameFilterClass();
+          FilenameFilter filter = new PluginFilter();
           List<String> filesCopy = new ArrayList<String>(FileChecker.this.files);
           List<String> folders = Arrays.asList(FileChecker.this.folder.list(filter));
 

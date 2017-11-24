@@ -10,7 +10,7 @@ import fil.coo.checker.util.FileNameFilterClass;
 public class App {
 
   public static void main(String[] args) {
-	  FileChecker checker = new FileChecker(new FileNameFilterClass(), new File("./resources"));
+	  FileChecker checker = new FileChecker(new FileNameFilterClass(), new File("./target/classes/fil/coo/plugins"));
     checker.addListener(new FileListenerAddPrinter());
 	  checker.addListener(new FileListenerRemovePrinter());
 
