@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import fil.coo.checker.util.FileEvent;
 import fil.coo.checker.util.FileNameFilterClass;
-
-import java.util.ArrayList;
 
 
 public class FileChecker {
@@ -26,7 +26,13 @@ public class FileChecker {
 	  this.folder = folder;
 
 	  this.listeners = new ArrayList<FileListener>();
-	  this.files = new ArrayList<String>();
+    this.files = new ArrayList<String>();
+
+
+  	int delay = 1000; // toutes les secondes
+  	ActionListener task = new ActionListenerChecker();
+  	Timer timer = new Timer(delay, task);
+  	timer.start();
   }
 
   public void addListener(FileListener listener) {
@@ -41,25 +47,34 @@ public class FileChecker {
 	  List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
 	  for (FileListener listener : listenersCopy)
 		  listener.fileAdded(new FileEvent(file));
-	  this.files.add(file);
   }
 
-  public void startChecker() {
-	  int delay = 10000; // toutes les 10 secondes
-	  ActionListener task = new ActionListenerChecker();
-	  Timer timer = new Timer(delay, task);
-	  timer.start();
+  public void fireFileRemoved(String file) {
+    List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
+    for (FileListener listener : listenersCopy)
+      listener.fileRemoved(new FileEvent(file));
   }
 
 
   public class ActionListenerChecker implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    for (String s : folder.list(new FileNameFilterClass()))
-	    	if (!FileChecker.this.files.contains(s)) {
-	    		FileChecker.this.files.add(s);
-	          	FileChecker.this.fireFileAdded(s);
-	    	}
-	}
+    	public void actionPerformed(ActionEvent e) {
+          FilenameFilter filter = new FileNameFilterClass();
+          List<String> filesCopy = new ArrayList<String>(FileChecker.this.files);
+          List<String> folders = Arrays.asList(FileChecker.this.folder.list(filter));
+
+    	    for (String s : folders)
+      	    	if (!filesCopy.contains(s)) {
+      	    		   FileChecker.this.files.add(s);
+      	           FileChecker.this.fireFileAdded(s);
+    	    	   }
+
+          for (String s : filesCopy) {
+              if (!folders.contains(s)) {
+                  FileChecker.this.files.remove(s);
+                  FileChecker.this.fireFileRemoved(s);
+              }
+          }
+    	}
   }
 
 }
