@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import fil.coo.plugin.tools.FileEvent;
 import fil.coo.plugin.tools.PluginFilter;
+import fil.coo.plugin.tools.Tools;
 
 
 public class FileChecker {
@@ -29,10 +30,7 @@ public class FileChecker {
 	  this.listeners = new ArrayList<FileListener>();
     this.files = new ArrayList<String>();
 
-  	int delay = 1000; // toutes les secondes
-  	ActionListener task = new ActionListenerChecker();
-  	Timer timer = new Timer(delay, task);
-  	timer.start();
+  	new Timer(Tools.delayTimer, new ActionListenerChecker()).start();
   }
 
   public void addListener(FileListener listener) {

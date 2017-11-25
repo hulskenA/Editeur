@@ -1,11 +1,10 @@
 package fil.coo.plugin.graphical;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -13,6 +12,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import fil.coo.plugin.Plugin;
+import fil.coo.plugin.tools.Tools;
 import fil.coo.plugin.tools.FileListener;
 import fil.coo.plugin.tools.FileEvent;
 import fil.coo.plugin.graphical.util.PluginMenuItemActionListener;
@@ -34,8 +34,8 @@ public class GUI extends JFrame implements FileListener {
 	protected JMenuItem helpApp = new JMenuItem("Help");
 	protected JTextArea text = new JTextArea();
 
-	protected List<JMenuItem> pluginsMenuItem = new ArrayList<JMenuItem>();
-	protected List<JMenuItem> pluginHelperMenuItem = new ArrayList<JMenuItem>();
+	protected Map<String, JMenuItem> pluginsMenuItem = new HashMap<String, JMenuItem>();
+	protected Map<String, JMenuItem> pluginHelperMenuItem = new HashMap<String, JMenuItem>();
 
 
 	public GUI(String title) {
@@ -121,20 +121,27 @@ public class GUI extends JFrame implements FileListener {
   public void fileAdded(FileEvent file) {
     String name = (String) file.getSource();
     try {
-      Class<?> c = Class.forName("plugins." + name.substring(0, name.lastIndexOf(".class")));
+      Class<?> c = Class.forName(Tools.pathForClass + "." + name.substring(0, name.lastIndexOf(".class")));
       Plugin plugin = (Plugin)c.getConstructor().newInstance();
 
 			JMenuItem item = new JMenuItem(plugin.getLabel());
 			this.pluginsMenu.add(item);
+			this.pluginsMenuItem.put(name, item);
 			item.addActionListener(new PluginActionMenuItemActionListener(plugin));
 
 			item = new JMenuItem("help to : " + plugin.getLabel());
 			this.helpMenu.add(item);
+			this.pluginHelperMenuItem.put(name, item);
 			item.addActionListener(new PluginHelpMenuItemActionListener(plugin));
     } catch (Exception e) {}
   }
 
-  public void fileRemoved(FileEvent file) {}
+  public void fileRemoved(FileEvent file) {
+		String name = ((String) file.getSource());
+
+		this.pluginsMenu.remove(this.pluginsMenuItem.get(name));
+		this.helpMenu.remove(this.pluginHelperMenuItem.get(name));
+	}
 
 
 	protected class PluginActionMenuItemActionListener extends PluginMenuItemActionListener {
@@ -157,24 +164,8 @@ public class GUI extends JFrame implements FileListener {
     		int status = chooser.showOpenDialog(new JFrame());
     		if (status == JFileChooser.APPROVE_OPTION) {
     			File selectedFile = chooser.getSelectedFile();
-    			GUI.this.text.setText(readFile(selectedFile.getAbsolutePath()));
+    			GUI.this.text.setText(Tools.readFile(selectedFile.getAbsolutePath()));
     		}
-		}
-
-		private String readFile(String fileName) {
-			File source = new File(fileName);
-			BufferedReader in = null;
-			String res = "";
-			String text;
-
-			try {
-				in = new BufferedReader(new FileReader(source));
-				while ((text = in.readLine()) != null)
-					res += text + "\n";
-				in.close();
-			} catch (Exception e) {}
-
-			return res;
 		}
 	}
 
