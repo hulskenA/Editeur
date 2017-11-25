@@ -30,51 +30,59 @@ public class GUI extends JFrame implements FileListener {
 
 
 	public GUI(String title) {
+		// Generale de la fenetre
 		super(title);
-
-	    this.setLocationRelativeTo(null);
+	  this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+		// Ajout TextArea
 		this.add(new JScrollPane(this.text));
 
+
+		// Le Menu de la fenetre
 		// Ajout des items Files
 		this.filesMenu.add(openMenuItem);
-	    this.filesMenu.add(this.resetMenuItem);
-	    this.filesMenu.addSeparator();
-	    this.filesMenu.add(this.closeMenuItem);
+	  this.filesMenu.add(this.resetMenuItem);
+	  this.filesMenu.addSeparator();
+	  this.filesMenu.add(this.closeMenuItem);
 
-	    this.openMenuItem.addActionListener(new OpenMenuItemActionListener());
-	    this.closeMenuItem.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		System.exit(0);
-	    	}
-	    });
-	    this.resetMenuItem.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		GUI.this.text.setText("");
-	    	}
-	    });
+		// Comportement des items Files
+	  this.openMenuItem.addActionListener(new OpenMenuItemActionListener());
+		this.openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_MASK));
+	  this.closeMenuItem.addActionListener(new ActionListener() {
+	  	public void actionPerformed(ActionEvent e) {
+	   		System.exit(0);
+	   	}
+	  });
+		this.closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
+	  this.resetMenuItem.addActionListener(new ActionListener() {
+	   	public void actionPerformed(ActionEvent e) {
+	   		GUI.this.text.setText("");
+	   	}
+	  });
+		this.resetMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_MASK));
 
 
-	    this.helpMenu.add(this.helpApp);
-	    this.helpMenu.addSeparator();
+		// Ajout des items Help
+	  this.helpMenu.add(this.helpApp);
+	  this.helpMenu.addSeparator();
 
+		// Comportement des items Help
 		this.helpApp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null, "Vous trouverez ici le message d'aide");
 			}
 		});
+		this.helpApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
 
 
-	    this.menuBar.add(this.filesMenu);
-	    this.menuBar.add(this.pluginsMenu);
-	    this.menuBar.add(this.helpMenu);
-	    this.setJMenuBar(this.menuBar);
-
-
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+		// Ajout des menus et de la bar à la fenetre
+	  this.menuBar.add(this.filesMenu);
+	  this.menuBar.add(this.pluginsMenu);
+	  this.menuBar.add(this.helpMenu);
+	  this.setJMenuBar(this.menuBar);
 	}
 
 
@@ -91,12 +99,10 @@ public class GUI extends JFrame implements FileListener {
 			item = new JMenuItem("help to : " + plugin.getLabel());
 			this.helpMenu.add(item);
 			item.addActionListener(new PluginHelpMenuItemActionListener(plugin));
-    } catch (Exception e) {System.out.println("\t/!\\ PAS OK");}
+    } catch (Exception e) {}
   }
 
-  public void fileRemoved(FileEvent file) {
-
-  }
+  public void fileRemoved(FileEvent file) {}
 
 
 	protected class PluginHelpMenuItemActionListener implements ActionListener {
@@ -147,15 +153,14 @@ public class GUI extends JFrame implements FileListener {
 			File source = new File(fileName);
 			BufferedReader in = null;
 			String res = "";
+			String text;
 
 			try {
 				in = new BufferedReader(new FileReader(source));
-				String text;
-				// read block of 3 lines : text,answer and number of points
-				while ((text = in.readLine())!= null)
+				while ((text = in.readLine()) != null)
 					res += text + "\n";
 				in.close();
-			} catch (Exception e) {System.out.println(fileName);}
+			} catch (Exception e) {}
 
 			return res;
 		}
