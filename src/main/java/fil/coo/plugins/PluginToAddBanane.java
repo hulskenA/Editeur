@@ -3,16 +3,16 @@ package fil.coo.plugins;
 import fil.coo.plugin.Plugin;
 
 
-public class Test implements Plugin {
+public class PluginToAddBanane implements Plugin {
   public String transform(String s) {
-    return s;
+    return s+"\nBanane";
   }
 
   public String getLabel() {
-    return "Test";
+    return "Banane";
   }
 
   public String helpMessage() {
-    return "plugin test";
+    return "Added banane to the text field";
   }
 }

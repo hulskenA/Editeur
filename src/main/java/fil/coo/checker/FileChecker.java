@@ -3,6 +3,7 @@ package fil.coo.checker;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.List;
@@ -27,7 +28,6 @@ public class FileChecker {
 
 	  this.listeners = new ArrayList<FileListener>();
     this.files = new ArrayList<String>();
-
 
   	int delay = 1000; // toutes les secondes
   	ActionListener task = new ActionListenerChecker();

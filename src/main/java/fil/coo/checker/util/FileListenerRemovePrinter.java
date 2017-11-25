@@ -2,6 +2,7 @@ package fil.coo.checker.util;
 
 import fil.coo.checker.FileListener;
 
+
 public class FileListenerRemovePrinter implements FileListener {
 
 	public void fileAdded(FileEvent file) {}
