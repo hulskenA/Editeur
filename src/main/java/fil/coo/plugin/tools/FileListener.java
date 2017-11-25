@@ -1,6 +1,6 @@
-package fil.coo.checker;
+package fil.coo.plugin.tools;
 
-import fil.coo.checker.util.FileEvent;
+import fil.coo.plugin.tools.FileEvent;
 
 
 public interface FileListener {

@@ -1,6 +1,6 @@
-package fil.coo.checker.util;
+package fil.coo.plugin.tools;
 
-import fil.coo.checker.FileListener;
+import fil.coo.plugin.tools.FileListener;
 
 
 public class SimplePluginObserver implements FileListener {

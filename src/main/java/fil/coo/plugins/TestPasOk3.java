@@ -1,18 +1,18 @@
-package plugins;
+package paslebonpackage;
 
 import fil.coo.plugin.Plugin;
 
 
-public class Test implements Plugin {
+public class TestPasOk3 implements Plugin {
   public String transform(String s) {
     return s;
   }
 
   public String getLabel() {
-    return "Nothing";
+    return "";
   }
 
   public String helpMessage() {
-    return "this plugin do nothing";
+    return "";
   }
 }

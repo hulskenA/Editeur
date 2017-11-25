@@ -1,4 +1,4 @@
-package fil.coo.plugins;
+package plugins;
 
 import fil.coo.plugin.Plugin;
 

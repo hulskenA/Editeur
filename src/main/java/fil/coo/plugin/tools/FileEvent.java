@@ -1,6 +1,6 @@
-package fil.coo.checker.util;
+package fil.coo.plugin.tools;
 
-import java.util.EventObject;;
+import java.util.EventObject;
 
 
 public class FileEvent extends EventObject {

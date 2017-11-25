@@ -1,11 +1,11 @@
-package fil.coo.plugin;
+package fil.coo.plugin.tools;
 
 import java.io.File;
 import java.io.FilenameFilter;
 
 
 public class PluginFilter implements FilenameFilter {
-		private final static String pathForClass = "fil.coo.plugins";
+		private final static String pathForClass = "plugins";
 		private final static String pathForPlugin = "fil.coo.plugin.Plugin";
 
 		public boolean accept(File dir, String name) {

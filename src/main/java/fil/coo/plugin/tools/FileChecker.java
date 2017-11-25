@@ -1,4 +1,4 @@
-package fil.coo.checker;
+package fil.coo.plugin.tools;
 
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import fil.coo.checker.util.FileEvent;
-import fil.coo.plugin.PluginFilter;
+import fil.coo.plugin.tools.FileEvent;
+import fil.coo.plugin.tools.PluginFilter;
 
 
 public class FileChecker {
