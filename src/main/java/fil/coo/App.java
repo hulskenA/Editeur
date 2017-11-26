@@ -1,20 +1,40 @@
 package fil.coo;
 
 import java.io.File;
+import java.util.Map;
 
 import fil.coo.plugin.graphical.GUI;
+import fil.coo.plugin.tools.Tools;
 import fil.coo.plugin.tools.FileChecker;
 import fil.coo.plugin.tools.SimplePluginObserver;
 import fil.coo.plugin.tools.PluginFilter;
+import fil.coo.plugin.tools.langages.Translator;
+import fil.coo.plugin.tools.langages.LangageFilter;
 
 
 public class App {
 
   public static void main(String[] args) {
-	  FileChecker checker = new FileChecker(new PluginFilter(), new File("resources/plugins"));
-    checker.addListener(new SimplePluginObserver());
+    LangageFilter langFilter = new LangageFilter();
+    File langFile = new File("resources/langages");
+    if (langFile.list(langFilter).length == 0) {
+      System.out.println("Langage Error : No langage's file found in resources");
+      System.exit(1);
+    } else {
+      Translator.SINGLETON.open(new File("resources/langages/" + Tools.settings.get("LANG")));
+    }
 
-	  checker.addListener(new GUI("Plugin project"));
+
+    FileChecker classChecker = new FileChecker(new PluginFilter(), new File("resources/plugins"));
+
+	  FileChecker langagesChecker = new FileChecker(langFilter, langFile);
+    GUI gui = new GUI(Translator.SINGLETON.translate("Plugin project"));
+    SimplePluginObserver observer = new SimplePluginObserver();
+
+    classChecker.addListener(observer);
+    classChecker.addListener(gui);
+    langagesChecker.addListener(observer);
+    langagesChecker.addListener(gui);
   }
 
 }

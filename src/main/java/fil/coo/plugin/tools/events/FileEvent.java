@@ -1,4 +1,4 @@
-package fil.coo.plugin.tools;
+package fil.coo.plugin.tools.events;
 
 import java.util.EventObject;
 
