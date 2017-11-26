@@ -3,7 +3,7 @@ package plugins;
 import fil.coo.plugin.Plugin;
 
 
-public class Test implements Plugin {
+public class DoNothing implements Plugin {
   public String transform(String s) {
     return s;
   }
