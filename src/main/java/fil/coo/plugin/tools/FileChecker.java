@@ -42,13 +42,13 @@ public class FileChecker {
 	  this.listeners.remove(listener);
   }
 
-  public void fireFileAdded(String file) {
+  public synchronized void fireFileAdded(String file) {
 	  List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
 	  for (FileListener listener : listenersCopy)
 		  listener.fileAdded(new FileEvent(file));
   }
 
-  public void fireFileRemoved(String file) {
+  public synchronized void fireFileRemoved(String file) {
     List<FileListener> listenersCopy = new ArrayList<FileListener>(this.listeners);
     for (FileListener listener : listenersCopy)
       listener.fileRemoved(new FileEvent(file));
