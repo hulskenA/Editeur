@@ -22,6 +22,7 @@ import fil.coo.plugin.tools.langages.Translator;
 import fil.coo.plugin.tools.langages.LangageFilter;
 import fil.coo.plugin.graphical.util.PluginMenuItemActionListener;
 import fil.coo.plugin.graphical.util.PluginHelpMenuItemActionListener;
+import fil.coo.plugin.exceptions.NoSuchFileLangageException;
 
 @SuppressWarnings("serial")
 public class GUI extends JFrame implements FileListener {
@@ -98,7 +99,6 @@ public class GUI extends JFrame implements FileListener {
 		this.closeMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_MASK));
 
 		// Comportement des items Settings
-		// /!\ implémenter une template method pour ces deux events
 		this.zoomMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Float sizeSaved = new Float(Tools.settings.get("FONT_SIZE"));
@@ -170,9 +170,11 @@ public class GUI extends JFrame implements FileListener {
 
 		else if (new LangageFilter().accept(new File(Tools.PATHFORLANGAGES), name)) {
 			item = new JMenuItem(name);
-			item.addActionListener(new changeLangageActionListener());
-			this.langagesSubMenu.add(item);
-			this.langagesMenuItem.put(name, item);
+			try {
+				item.addActionListener(new changeLangageActionListener());
+				this.langagesSubMenu.add(item);
+				this.langagesMenuItem.put(name, item);
+			} catch	(Exception e) {}
 		}
   }
 
@@ -232,7 +234,12 @@ public class GUI extends JFrame implements FileListener {
 			String langFile = ((JMenuItem) e.getSource()).getText();
 			Tools.settings.put("LANG", langFile);
 			Translator.SINGLETON.close();
-			Translator.SINGLETON.open(new File(Tools.PATHFORLANGAGES + "/" + langFile));
+			try {
+				Translator.SINGLETON.open(new File(Tools.PATHFORLANGAGES + "/" + langFile));
+			} catch (NoSuchFileLangageException ex) {
+				ex.printStackTrace();
+				System.exit(1);
+			}
 
 			GUI.this.initTextFields();
 		}

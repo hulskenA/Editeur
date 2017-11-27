@@ -11,13 +11,20 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
 
+import fil.coo.plugin.exceptions.NoSuchSettingsFileException;
+
 
 public abstract class Tools {
+  public static final String settingsExceptionMsg = "Settings Error : can't loaded the settings' file";
+  public static final String langagesExceptionMsg = "Langage Error : No langage's file found in resources";
+
   public static final String PACKAGEFORPLUGIN = "plugins";
   public static final String PATHFORLANGAGES = "resources/langages";
+  public static final String PATHFORSETTINGS = "resources/settings.properties";
   public static final String PATHFORPLUGIN = "fil.coo.plugin.Plugin";
   public static final int DELAYTIMER = 2000; // toutes les 2 secondes
   public static Map<String, String> settings = loadSettings();
+
 
   public static String readFile(String fileName) {
     File source = new File(fileName);
@@ -44,30 +51,29 @@ public abstract class Tools {
 
     try{
       Properties myProperties = new Properties();
-      InputStream input = new FileInputStream("resources/settings.properties");
+      InputStream input = new FileInputStream(PATHFORSETTINGS);
       myProperties.load(input);
       res.put("LANG", myProperties.getProperty("LANG"));
       res.put("FONT_SIZE", myProperties.getProperty("FONT_SIZE"));
       input.close();
     } catch (Exception e) {
-      System.out.println("Settings Error : can't loaded the settings' file");
+      new NoSuchSettingsFileException(settingsExceptionMsg).printStackTrace();
       System.exit(1);
     }
 
     return res;
   }
 
-  public static void saveSettings() {
+  public static void saveSettings() throws NoSuchSettingsFileException {
     try{
       Properties myProperties = new Properties();
-      OutputStream output = new FileOutputStream("resources/settings.properties");
+      OutputStream output = new FileOutputStream(PATHFORSETTINGS);
       for (String key : settings.keySet())
         myProperties.setProperty(key, settings.get(key));
       myProperties.store(output, null);
       output.close();
     } catch (Exception e) {
-      System.out.println("Settings Error : can't loaded the settings' file");
-      System.exit(1);
+      throw new NoSuchSettingsFileException(settingsExceptionMsg);
     }
   }
 }

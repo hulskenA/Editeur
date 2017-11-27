@@ -6,6 +6,10 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import fil.coo.plugin.exceptions.NoSuchFileLangageException;
+import fil.coo.plugin.tools.Tools;
+
+
 /**
  * Class that reads a properties file and allows us to be able to
  * translate strings into different languages easily.
@@ -29,7 +33,7 @@ public class Translator {
 	 * imperatively executed before any calls to translate!
 	 * @param lang The chosen language from the game
 	 */
-	public void open(File langFile) {
+	public void open(File langFile) throws NoSuchFileLangageException {
 		input = null;
 
 		try {
@@ -39,8 +43,8 @@ public class Translator {
 			// load a properties file
 			PROP.load(input);
 
-		} catch (final IOException ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			throw new NoSuchFileLangageException(Tools.langagesExceptionMsg);
 		}
 	}
 
@@ -61,7 +65,7 @@ public class Translator {
 		if(input!=null){
 			try {
 				input.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

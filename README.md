@@ -106,6 +106,7 @@ skinparam classAttributeIconSize 0
 package fil.coo {
   package plugins {}
   package plugin {
+    package exceptions {}
     package graphical {
       package util {}
     }
@@ -134,6 +135,7 @@ interface events.FileListener <<Interface>> {
 abstract tools.Tools <<Abstract>> {
   + {static} PACKAGEFORPLUGIN : String
   + {static} PATHFORLANGAGES : String
+  + {static} PATHFORSETTINGS : String
   + {static} PATHFORPLUGIN : String
   + {static} DELAYTIMER : int
   + {static} settings : Map<String, String>
@@ -145,6 +147,14 @@ abstract tools.Tools <<Abstract>> {
 }
 
 
+
+class exceptions.NoSuchFileLangageException extends java.lang.Exception {
+  + NoSuchFileLangageException(msg : String)
+}
+
+class exceptions.NoSuchSettingsFileException extends java.lang.Exception {
+  + NoSuchSettingsFileException(msg : String)
+}
 
 class tools.SimplePluginObserver implements events.FileListener {
   + fileAdded(FileEvent file) : void
@@ -181,7 +191,7 @@ class langages.Translator {
   + close() : void
 }
 
-class events.CloseWindowEvent implements java.axt.event.ActionListener {
+class events.CloseWindowEvent implements java.awt.event.ActionListener {
   actionPerformed(e : ActionEvent) : void
 }
 

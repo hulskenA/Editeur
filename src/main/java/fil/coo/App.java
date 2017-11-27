@@ -10,16 +10,16 @@ import fil.coo.plugin.tools.SimplePluginObserver;
 import fil.coo.plugin.tools.PluginFilter;
 import fil.coo.plugin.tools.langages.Translator;
 import fil.coo.plugin.tools.langages.LangageFilter;
+import fil.coo.plugin.exceptions.NoSuchFileLangageException;
 
 
 public class App {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws NoSuchFileLangageException {
     LangageFilter langFilter = new LangageFilter();
     File langFile = new File(Tools.PATHFORLANGAGES);
     if (langFile.list(langFilter).length == 0) {
-      System.out.println("Langage Error : No langage's file found in resources");
-      System.exit(1);
+      throw new NoSuchFileLangageException(Tools.langagesExceptionMsg);
     } else {
       Translator.SINGLETON.open(new File(Tools.PATHFORLANGAGES + "/" + Tools.settings.get("LANG")));
     }
@@ -31,9 +31,9 @@ public class App {
     GUI gui = new GUI();
     SimplePluginObserver observer = new SimplePluginObserver();
 
-    classChecker.addListener(observer);
+    // classChecker.addListener(observer);
+    // langagesChecker.addListener(observer);
     classChecker.addListener(gui);
-    langagesChecker.addListener(observer);
     langagesChecker.addListener(gui);
   }
 
