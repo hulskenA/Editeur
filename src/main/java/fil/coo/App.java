@@ -16,19 +16,19 @@ public class App {
 
   public static void main(String[] args) {
     LangageFilter langFilter = new LangageFilter();
-    File langFile = new File("resources/langages");
+    File langFile = new File(Tools.PATHFORLANGAGES);
     if (langFile.list(langFilter).length == 0) {
       System.out.println("Langage Error : No langage's file found in resources");
       System.exit(1);
     } else {
-      Translator.SINGLETON.open(new File("resources/langages/" + Tools.settings.get("LANG")));
+      Translator.SINGLETON.open(new File(Tools.PATHFORLANGAGES + "/" + Tools.settings.get("LANG")));
     }
 
 
-    FileChecker classChecker = new FileChecker(new PluginFilter(), new File("resources/plugins"));
+    FileChecker classChecker = new FileChecker(new PluginFilter(), new File("resources/" + Tools.PACKAGEFORPLUGIN));
 
 	  FileChecker langagesChecker = new FileChecker(langFilter, langFile);
-    GUI gui = new GUI(Translator.SINGLETON.translate("Plugin project"));
+    GUI gui = new GUI();
     SimplePluginObserver observer = new SimplePluginObserver();
 
     classChecker.addListener(observer);

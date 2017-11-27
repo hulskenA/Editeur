@@ -20,7 +20,7 @@ import java.util.Properties;
 public class Translator {
 	private final Properties PROP = new Properties();
 	private InputStream input;
-	public static Translator SINGLETON = new Translator();
+	public static final Translator SINGLETON = new Translator();
 
 	private Translator() {}
 

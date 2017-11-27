@@ -31,7 +31,7 @@ public class FileChecker {
 	  this.listeners = new ArrayList<FileListener>();
     this.files = new ArrayList<String>();
 
-  	new Timer(Tools.delayTimer, new ActionListenerChecker()).start();
+  	new Timer(Tools.DELAYTIMER, new ActionListenerChecker()).start();
   }
 
   public void addListener(FileListener listener) {
@@ -55,7 +55,7 @@ public class FileChecker {
   }
 
 
-  public class ActionListenerChecker implements ActionListener {
+  protected class ActionListenerChecker implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
           List<String> filesCopy = new ArrayList<String>(FileChecker.this.files);
           List<String> folders = Arrays.asList(FileChecker.this.folder.list(FileChecker.this.filter));

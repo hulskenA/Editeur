@@ -9,7 +9,6 @@ public abstract class PluginMenuItemActionListener implements ActionListener {
   protected Plugin plugin;
 
   public PluginMenuItemActionListener(Plugin plugin) {
-    super();
     this.plugin = plugin;
   }
 

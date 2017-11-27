@@ -12,13 +12,12 @@ import java.util.HashMap;
 import java.util.Properties;
 
 
-public class Tools {
-  public static final String pathForClass = "plugins";
-  public static final String pathForPlugin = "fil.coo.plugin.Plugin";
-  public static final int delayTimer = 2000; // toutes les 2 secondes
-  public static Map<String, String> settings = getSettings();
-
-  private Tools() {}
+public abstract class Tools {
+  public static final String PACKAGEFORPLUGIN = "plugins";
+  public static final String PATHFORLANGAGES = "resources/langages";
+  public static final String PATHFORPLUGIN = "fil.coo.plugin.Plugin";
+  public static final int DELAYTIMER = 2000; // toutes les 2 secondes
+  public static Map<String, String> settings = loadSettings();
 
   public static String readFile(String fileName) {
     File source = new File(fileName);
@@ -40,7 +39,7 @@ public class Tools {
     return new Float(settings.get("FONT_SIZE"));
   }
 
-  private static Map<String, String> getSettings() {
+  private static Map<String, String> loadSettings() {
     Map<String, String> res = new HashMap<String, String>();
 
     try{

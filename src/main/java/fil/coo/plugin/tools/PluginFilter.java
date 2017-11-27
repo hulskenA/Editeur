@@ -10,9 +10,9 @@ public class PluginFilter implements FilenameFilter {
 		public boolean accept(File dir, String name) {
 			  if (name.endsWith(".class")) {
 						try {
-								Class<?> c = Class.forName(Tools.pathForClass + "." + name.substring(0, name.lastIndexOf(".class")));
+								Class<?> c = Class.forName(Tools.PACKAGEFORPLUGIN + "." + name.substring(0, name.lastIndexOf(".class")));
 								c.getConstructor();
-								if (Class.forName(Tools.pathForPlugin).isAssignableFrom(c) && c.getPackage().toString().equals("package " + Tools.pathForClass))
+								if (Class.forName(Tools.PATHFORPLUGIN).isAssignableFrom(c) && c.getPackage().toString().equals("package " + Tools.PACKAGEFORPLUGIN))
 										return true;
 						} catch (Exception e) {}
 	      }

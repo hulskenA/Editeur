@@ -123,9 +123,9 @@ public class GUI extends JFrame implements FileListener {
 	}
 
 
-	public GUI(String title) {
+	public GUI() {
 		// Generale de la fenetre
-		super(title);
+		super();
 	  this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 		this.addWindowListener(new WindowAdapter() {
@@ -151,9 +151,9 @@ public class GUI extends JFrame implements FileListener {
     String name = (String) file.getSource();
 		JMenuItem item;
 		// chercher une autre méthode si possible
-		if (new PluginFilter().accept(new File("resources/plugins"), name)) {
+		if (new PluginFilter().accept(new File("resources/" + Tools.PACKAGEFORPLUGIN), name)) {
 	    try {
-	      Class<?> c = Class.forName(Tools.pathForClass + "." + name.substring(0, name.lastIndexOf(".class")));
+	      Class<?> c = Class.forName(Tools.PACKAGEFORPLUGIN + "." + name.substring(0, name.lastIndexOf(".class")));
 	      Plugin plugin = (Plugin) c.getConstructor().newInstance();
 
 				item = new JMenuItem(plugin.getLabel());
@@ -168,7 +168,7 @@ public class GUI extends JFrame implements FileListener {
 	    } catch (Exception e) {}
 		}
 
-		else if (new LangageFilter().accept(new File("resources/langages"), name)) {
+		else if (new LangageFilter().accept(new File(Tools.PATHFORLANGAGES), name)) {
 			item = new JMenuItem(name);
 			item.addActionListener(new changeLangageActionListener());
 			this.langagesSubMenu.add(item);
@@ -179,14 +179,14 @@ public class GUI extends JFrame implements FileListener {
   public void fileRemoved(FileEvent file) {
 		String name = ((String) file.getSource());
 
-		if (new PluginFilter().accept(new File("resources/plugins"), name)) {
+		if (new PluginFilter().accept(new File("resources/" + Tools.PACKAGEFORPLUGIN), name)) {
 			this.pluginsMenu.remove(this.pluginsMenuItem.get(name));
 			this.pluginsMenuItem.remove(name);
 			this.helpMenu.remove(this.pluginHelperMenuItem.get(name));
 			this.pluginHelperMenuItem.remove(name);
 		}
 
-		else if (new LangageFilter().accept(new File("resources/langages"), name)) {
+		else if (new LangageFilter().accept(new File(Tools.PATHFORLANGAGES), name)) {
 			this.langagesSubMenu.remove(this.langagesMenuItem.get(name));
 			this.langagesMenuItem.remove(name);
 		}
@@ -232,7 +232,7 @@ public class GUI extends JFrame implements FileListener {
 			String langFile = ((JMenuItem) e.getSource()).getText();
 			Tools.settings.put("LANG", langFile);
 			Translator.SINGLETON.close();
-			Translator.SINGLETON.open(new File("resources/langages/" + langFile));
+			Translator.SINGLETON.open(new File(Tools.PATHFORLANGAGES + "/" + langFile));
 
 			GUI.this.initTextFields();
 		}
