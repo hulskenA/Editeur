@@ -26,8 +26,7 @@
     + [2.3. La Génération d'éxecutable et son Execution](#23-la-génération-déxecutable-et-son-execution)
 
 3. [Structure du projet](#3-structure-du-projet)
-    + [3.1. Le package "questionnaire"](#31-le-package-questionnaire)
-    + [3.2. Le package "ui"](#32-le-package-ui)
+    + [3.1. Le package ""](#31-le-package)
 
 4. [Conception des Objets](#4-conception-des-objets)
     + [4.1. Notre code](#41-notre-code)
@@ -171,7 +170,7 @@ class langages.LangageFilter implements java.io.FilenameFilter {
   + accept(dir : File, name : String) : boolean
 }
 
-class Translator {
+class langages.Translator {
   - PROP : Properties
   - input : InputStream
   + {static} SINGLETON : Translator
@@ -186,11 +185,11 @@ class events.CloseWindowEvent implements java.axt.event.ActionListener {
   actionPerformed(e : ActionEvent) : void
 }
 
-class FileEvent extends java.util.EventObject {
+class events.FileEvent extends java.util.EventObject {
   + FileEvent(file : String)
 }
 
-class HelperWindowActionListener implements java.awt.event.ActionListener {
+class events.HelperWindowActionListener implements java.awt.event.ActionListener {
   actionPerformed(e : ActionEvent) : void
 }
 
@@ -219,7 +218,7 @@ class graphical.GUI extends javax.swing.JFrame implements events.FileListener {
   + fileRemoved(file : FileEvent) : void
 }
 
-abstract util.PluginMenuItemActionListener implements java.awt.event.ActionListener <<Abstract>> {
+abstract util.PluginMenuItemActionListener <<Abstract>> implements java.awt.event.ActionListener {
   # plugin : Plugin
 
   + PluginMenuItemActionListener(plugin : Plugin)
@@ -229,266 +228,35 @@ abstract util.PluginMenuItemActionListener implements java.awt.event.ActionListe
 class util.PluginHelpMenuItemActionListener extends util.PluginMenuItemActionListener {
   + actionPerformed(e : ActionEvent) : void
 }
-```
 
-<!--
-##### 3.1 - Le package "questionnaire"
 
-![Le package questionnaire](http://www.plantuml.com/plantuml/png/tLZVJzim47xlNs69brJGQi-ewXGgEdNQ65iBqZJjmIIczKZj43iKjlL_dtydJfosx04XNY3StNS-t_UTuy3kCCbX0TSWoI1ZCUS5lYavcYMKpF5l1DxrUZbCxk0IWL_m0GupI9RWJm_eU73-cA2SOqfwsohm5cV3XDBXVOcOz1682rG3VMtP0JW2Dfg1K_09CpwoOMCJm18gmay19jnOIYp-zB9TpNhAT-oRetxG6iBRo2NYSxbWrAyjgSmMm9GhKEenW6bgJT5zRGq9UA0ujM7iBiwooBCEfBKBjEs5c_YXWFaA9p03w94ZadRrU8D9IZSYtyUfu1mPAxo416NIgXwizQpad19frazDdgunshJ8aiPna0DNeoD3Q8pneapurIngTEOFuv3ZP0jocfUvyiw5DCaot0ItmPmAgfWd4bjlFONQ7s4RL0Xhh1v6xrjbH_TSjDFXJWAG4v3RvVfjXVXr6wV6AfT-h5oNglg6uZ2RqA902GUHMr_db74tb6O8adRiXAvpIX3XEy9TDOkd7BMBnUmQPZWr1Nkz2EOoQzSsk8ip9OefJ3WjdWn_DTwdyMJnvTltsXX8PPdmdfcKKAfANGM273agkgYq1gSSQr3LNeWfyJPjyvaAn1hf56Se4cSUye9FW7_yDGwQXjxzOeayd5eP-yqSOQm_Q_kpk5XDa_YvynmVcivfnk2Dc63HUCEjcOl568n6iN6DnoPM3XrVeTXsVk6ijxHOmopsAQamGfpQLFcCyzYis9eCvm_ASj7frl3cA9Z8q9GeqTekR0qNKgegq0rXAFRmmJu0w5RQWtsG4orAPFlNFF8sPi_gZePxV8Pmqnh7pqSld0P2s1eVsrv8btEypZFKeKxxoephmfPjgwEw5UROE8J5Wzjlzg7BloZNg90ZsYgnuUckSgymgsrKRmwTBQIC0-I0NVAZmrNG6Ft_vb_tRI6eRRMiChwcRdLj_6KRTgOBR_NCix-cjdL2NhPlvqJEeTXxscZT023ZqZTGTLVMMSRLIwm9t_awEwyILXyWDkMppvbdqcRUmrsSlQN1aEGnlzrPeztU9SuJnESourYyF2OhYXFKcgUGkvlqjqDcGAilFBFgzo4NN3OiESuSPvhM6L5Sg4Av-z-7kq5K5Wi37P1epPOjfhTUaVvPF2W7VyVUZKJ0pseCDEy8GS2CSBGqNvorbsCmjdxJRfrl6X6wiGULtmXlo60h_tdaFkK7FrOuJH7v6Vw--mS0)
 
-```puml
-skinparam classAttributeIconSize 0
-
-package java.lang {
-  class Exception
+class plugins.BananaCorp implements plugin.Plugin {
+  + transform(s : String) : String
+  + getLabel() : String
+  + helpMessage() : String
 }
 
-package fil.coo.questionnaire {
-  class Questionnaire {
-    # questions : List<Question>
-    # score : int
-    # ui : QuestionnaireUI
-
-    + Questionnaire()
-    + Questionnaire(ui : QuestionnaireUI)
-    + getScore() : int
-    + getQuestions() : List<Question>
-    + addQuestion(q : Question) : void
-    + askAll() : void
-    - ask(q : Question) : void
-  }
-
-  class QuestionnaireGraphical extends Questionnaire {
-    # window : JFrame
-    # aPanel : JPanel
-    # aButton : JButton
-    # questionsViews : List<QuestionView>
-
-    + QuestionnaireGraphical()
-    + constructUI() : void
-    + {static} popup() : String
-  }
-
-  class Question {
-    # points : int
-    # question : String
-    # answer : Answer<?>
-
-    + Question(qtext : String, answer : Answer<?>, pts : int)
-    + getQuestion() : String
-    + getAnswer() : Answer
-    + getPoints() : int
-    + isCorrect (answer : String) : boolean
-    + isCorrect (Component : String) : boolean
-    + getAnswerType() : String
-    + isValidAnswer(text : String) : boolean
-    + getCorrectAnswer() : String
-  }
-
-  class QuestionnaireFactory {
-    + {static} FACTORY : QuestionViewFactory
-
-    - QuestionnaireFactory()
-    + createQuestion(text : String, answer : String, points : String, className : String) : Question
-    - readFile(fileName : String, questionnaire : Questionnaire) : void
-    + createQuestionnire(fileName : String) : Questionnaire
-    + createQuestionnaireGraphical(fileName : String) : QuestionnaireGraphical
-  }
-
-
-  package fil.coo.questionnaire.answer {
-    abstract class Answer<T> <<Abstract>> {
-      # theAnswer : T
-      # formalAnswer : String
-      # typeString : String
-
-      + Answer(answer : String)
-      + getCorrectAnswer() : T
-      + getCorrectAnswerString() : String
-      + getType() : String
-      + {abstract} createView() : Component
-      + {abstract} isCorrect (answer : String) : boolean
-      + {abstract} isCorrect (answer : Component) : boolean
-      + {abstract} validates(answer : String) : boolean
-      # {abstract} constructAnswer(answer : String) : T
-      # {abstract} constructFormalAnswer(answer : String) : T
-      # {abstract} constructTypeString(answer : String) : String
-    }
-
-    abstract class SimpleAnswer<T> <<Abstract>> extends Answer {
-      + SimpleAnswer(answer : String)
-      + isCorrect(answer : String) : boolean
-      + validates(answer : String) : boolean
-    }
-
-    class NumericalAnswer {
-      + NumericalAnswer(answer : String)
-      + createView() : Component
-      + isCorrect(Component answer) : boolean
-      # constructAnswer(answer : String) : int
-      # constructFormalAnswer(answer : String) : String
-      # constructTypeString(answer : String) : String
-    }
-
-    class TextAnswer {
-      + TextAnswer(answer : String)
-      + createView() : Component
-      + isCorrect(Component answer) : boolean
-      # constructAnswer(answer : String) : String
-      # constructFormalAnswer(answer : String) : String
-      # constructTypeString(answer : String) : String
-    }
-
-    class BooleanAnswer {
-      + BooleanAnswer(answer : String)
-      + createView() : Component
-      + isCorrect(Component answer) : boolean
-      # constructAnswer(answer : String) : boolean
-      # constructFormalAnswer(answer : String) : String
-      # constructTypeString(answer : String) : String
-    }
-
-    class EnumeratedAnswer {
-      - enumeration : List<String>
-
-      + EnumeratedAnswer(answer : String)
-      + getEnumeration() : List<String>
-      + validates(answer : String) : boolean
-      + createView() : Component
-      + isCorrect(String answer) : boolean
-      + isCorrect(Component answer) : boolean
-      # constructAnswer(answer : String) : String
-      # constructFormalAnswer(answer : String) : String
-      # constructTypeString(answer : String) : String
-      - setEnumeration(l : List<String>) : void
-    }
-
-    class MultipleChoiceAnswer {
-      + MultipleChoiceAnswer(answer : String)
-      + validates(answer : String) : boolean
-      + createView() : Component
-      + isCorrect(String answer) : boolean
-      + isCorrect(Component answer) : boolean
-      # constructAnswer(answer : String) : List<String>
-      # constructFormalAnswer(answer : String) : String
-      # constructTypeString(answer : String) : String
-    }
-
-
-    package fil.coo.questionnaire.answers.util {
-      class InvalidFormatException extends Exception {
-        InvalidFormatException(msg : String)
-      }
-    }
-
-
-    BooleanAnswer -u-|> SimpleAnswer : Boolean
-    NumericalAnswer -u-|> SimpleAnswer : Integer
-    TextAnswer -u-|> SimpleAnswer : String
-
-    EnumeratedAnswer -u-|> Answer : String
-    MultipleChoiceAnswer -u-|> Answer : List<String>
-  }
+class plugins.DoNothing implements plugin.Plugin {
+  + transform(s : String) : String
+  + getLabel() : String
+  + helpMessage() : String
 }
 
-Question -[hidden]- QuestionnaireFactory
-```
-
-##### 3.2 - Le package "ui"
-
-![Le package ui](http://www.plantuml.com/plantuml/png/hLJRZjem47tFLrZgIn05zRbYgIY25TKkq8LMgge-J9rPS3UnKzk1tQxuzqukpcMJhK3gI-JCp9bpvcAR1o5Zq10n7e8n4skr-9bON70bD-8FidUU5mD_W1soNt20nw4v2hbZpnxB4UpJ6YI6tgcAknVXa2irJ4GM9gH5VGySsUS4ZHLAIX0QlopOQBHmll4uYsMipm9XuX2URj4OokPlI14HHcRNO-_PGOcWYDC8mKB6YVLJHnv6BXBYf6qio01qG5GYYaECK5hJKf7p3aWdfSaIKYw4g32hn99zJTcRTiD1IjGfTNxo2bqLgz_hBebgAHLVNDIrXdWlE8JdLDMlX_zNEVHjptiOWjoHoHJqA9E8tJZRQ3IZVzIGwYm7pjXS5uUPz8hJrPKx3PY422joPnvK0Ox0RqJs2d-VMPLRcZKKJNLjtMgG9WIhTAbhmDPtgtKsV1MZjW9DwH5fKphs9ULxDfPAv2UsMIolRsRRrP82g_oLyChcLsg9Ilff7xjdaXLKuD0tLZV2QjMbWJnK1lq6_lIlyHq47jtiyhQujVfA7eQF5cNWhdpPfpUCv1opgp1LKQmaBQHNQgXdy7yNFwNKjntOgXSxj9FCdO5x3OBM1Ej4S-3KrQTIOcqeyybqkxhxHhaw0DLiEfor8N4QkCMN9JbCxqNojjQgghEKji8hdIrNjygootdywCEutStN81-L2X5aZZmVvYux1fSYRvFG2dhPfdibE5wANgQqwOjtAN1B-_qQvkGUuQx7Rf1ytuiWGFbZqBfD1EbQp3gaiIf4yXS0)
-
-```puml
-skinparam classAttributeIconSize 0
-
-package javax.swing {
-  class JPanel
+class plugins.ImTheOnlyTrust implements plugin.Plugin {
+  + transform(s : String) : String
+  + getLabel() : String
+  + helpMessage() : String
 }
 
-package fil.coo.ui {
-  interface QuestionnaireUI <<Interface>> {
-    + displayMessage(String msg) : void
-    + readInput() : String
-  }
-
-  class StandardUI implements QuestionnaireUI {
-    - in : InputStream
-    - out : PrintStream
-    - scanner : Scanner
-
-    + StandardUI()
-    + displayMessage(msg : String) : void
-    + readInput() : String
-  }
-
-  class GraphicalUI implements QuestionnaireUI {
-    + GraphicalUI()
-    + displayMessage(msg : String) : void
-    + readInput() : String
-  }
-
-
-  package fil.coo.ui.langages {
-    enum Langages <<Enumeration>> {
-      Fr
-      En
-
-      ==
-
-      - name : String
-
-      --
-
-      - Langages(name : String)
-      + toString() : String
-    }
-
-    class Translator {
-      - PROP : Properties
-      - input : InputStream
-      + {static} SINGLETON : Translator
-
-      - Translator()
-      + open(lang : String) : void
-      + translate(str : String) : String
-      + close() : void
-    }
-  }
-
-
-  package fil.coo.ui.views {
-    class QuestionView extends JPanel {
-      # answer : Component
-
-      + QuestionView(question : String, answer : Component)
-      + getAnswerView() : Component
-    }
-
-    class QuestionViewFactory {
-      + {static} FACTORY : QuestionViewFactory
-
-      - QuestionViewFactory()
-      + createView(question : Question) : QuestionView
-    }
-
-    class AnswerViewFactory {
-      + {static} FACTORY : AnswerViewFactory
-
-      - AnswerViewFactory()
-      + createView(answer : Answer<?>) : Component
-      + createView(answer : BooleanAnswer) : Component
-      + createView(answer : EnumeratedAnswer) : Component
-      + createView(answer : MultipleChoiceAnswer) : Component
-      + createView(answer : NumericalAnswer) : Component
-      + createView(answer : TextAnswer) : Component
-    }
-  }
-
-  fil.coo.ui.langages -u[hidden]- fil.coo.ui.views
-  QuestionViewFactory -u[hidden]- QuestionView
+class plugins.PluginToAddSignature implements plugin.Plugin {
+  + transform(s : String) : String
+  + getLabel() : String
+  + helpMessage() : String
 }
 ```
--->
+
+##### 3.1 - Le package ""
 
 ---
 
