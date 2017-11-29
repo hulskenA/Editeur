@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 import fil.coo.plugin.tools.events.FileEvent;
 import fil.coo.plugin.tools.events.FileListener;
-import fil.coo.plugin.tools.PluginFilter;
 import fil.coo.plugin.tools.Tools;
 
 

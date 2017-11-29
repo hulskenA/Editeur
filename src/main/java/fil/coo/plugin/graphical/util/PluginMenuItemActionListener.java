@@ -12,6 +12,5 @@ public abstract class PluginMenuItemActionListener implements ActionListener {
     this.plugin = plugin;
   }
 
-  @Override
   public abstract void actionPerformed(ActionEvent e);
 }

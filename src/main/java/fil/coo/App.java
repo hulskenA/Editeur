@@ -1,7 +1,6 @@
 package fil.coo;
 
 import java.io.File;
-import java.util.Map;
 
 import fil.coo.plugin.graphical.GUI;
 import fil.coo.plugin.tools.Tools;
@@ -31,8 +30,8 @@ public class App {
     GUI gui = new GUI();
     SimplePluginObserver observer = new SimplePluginObserver();
 
-    // classChecker.addListener(observer);
-    // langagesChecker.addListener(observer);
+    classChecker.addListener(observer);
+    langagesChecker.addListener(observer);
     classChecker.addListener(gui);
     langagesChecker.addListener(gui);
   }

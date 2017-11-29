@@ -4,7 +4,8 @@ import fil.coo.plugin.Plugin;
 
 
 public class BananaCorp implements Plugin {
-  public String transform(String s) {
+  @SuppressWarnings("deprecation")
+public String transform(String s) {
     String res = new String();
 
     for (int i = 0; i < s.length(); i++) {

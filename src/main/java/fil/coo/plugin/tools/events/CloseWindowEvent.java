@@ -8,7 +8,6 @@ import fil.coo.plugin.tools.langages.Translator;
 
 
 public class CloseWindowEvent implements ActionListener {
-  @Override
   public void actionPerformed(ActionEvent e) {
     try {
       Tools.saveSettings();

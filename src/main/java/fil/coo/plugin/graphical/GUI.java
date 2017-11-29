@@ -1,9 +1,7 @@
 package fil.coo.plugin.graphical;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 import java.util.HashMap;
 
 import java.awt.event.*;
@@ -101,7 +99,6 @@ public class GUI extends JFrame implements FileListener {
 		// Comportement des items Settings
 		this.zoomMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Float sizeSaved = new Float(Tools.settings.get("FONT_SIZE"));
 				Tools.settings.put("FONT_SIZE", Float.toString(Tools.getFONT_SIZE() * new Float(1.5)));
 
 				new FontSizeActionListener().actionPerformed(e);
@@ -207,7 +204,6 @@ public class GUI extends JFrame implements FileListener {
 	}
 
 	protected class OpenMenuItemActionListener implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			JFileChooser chooser = new JFileChooser();
     	chooser.setFileFilter(new FileNameExtensionFilter(Translator.SINGLETON.translate("text files"), "txt"));
@@ -221,7 +217,6 @@ public class GUI extends JFrame implements FileListener {
 	}
 
 	protected class FontSizeActionListener implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			Font font = GUI.this.text.getFont();
 			GUI.this.text.setFont(font.deriveFont(Float.parseFloat(Tools.settings.get("FONT_SIZE"))));
@@ -229,7 +224,6 @@ public class GUI extends JFrame implements FileListener {
 	}
 
 	protected class changeLangageActionListener implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			String langFile = ((JMenuItem) e.getSource()).getText();
 			Tools.settings.put("LANG", langFile);
