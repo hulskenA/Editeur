@@ -104,7 +104,8 @@ public class GUI extends JFrame implements FileListener {
 				new FontSizeActionListener().actionPerformed(e);
 			}
 		});
-		this.zoomMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, KeyEvent.CTRL_MASK));
+		this.zoomMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ADD, KeyEvent.CTRL_MASK));
+		this.zoomMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, KeyEvent.CTRL_MASK + KeyEvent.SHIFT_MASK));
 		this.unzoomMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Tools.settings.put("FONT_SIZE", Float.toString(Tools.getFONT_SIZE() * new Float(0.5)));
@@ -112,6 +113,7 @@ public class GUI extends JFrame implements FileListener {
 				new FontSizeActionListener().actionPerformed(e);
 			}
 		});
+		this.unzoomMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_MASK));
 		this.unzoomMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_MASK));
 
 		// Comportement des items Help
@@ -130,7 +132,6 @@ public class GUI extends JFrame implements FileListener {
 				new CloseWindowEvent().actionPerformed(new ActionEvent(this, ActionEvent.ACTION_FIRST, "quit"));
 			}
 		});
-		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Ajout du TextArea
 		this.text.setFont(this.text.getFont().deriveFont(Tools.getFONT_SIZE()));
