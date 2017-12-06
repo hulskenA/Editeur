@@ -11,7 +11,12 @@ import fil.coo.plugin.tools.langages.Translator;
 import fil.coo.plugin.tools.langages.LangageFilter;
 import fil.coo.plugin.exceptions.NoSuchFileLangageException;
 
-
+/**
+ * Main class for our app:
+ * Starts the graphical interface.
+ * @author VASILEV Martin, HULSKEN Alexandre
+ *
+ */
 public class App {
 
   public static void main(String[] args) throws NoSuchFileLangageException {
