@@ -25,15 +25,15 @@ public class App {
 
 
     FileChecker classChecker = new FileChecker(new PluginFilter(), new File("resources/plugins/"));
+	FileChecker langagesChecker = new FileChecker(langFilter, langFile);
 
-	  FileChecker langagesChecker = new FileChecker(langFilter, langFile);
     GUI gui = new GUI();
     SimplePluginObserver observer = new SimplePluginObserver();
 
     classChecker.addListener(observer);
 //    langagesChecker.addListener(observer);
-    classChecker.addListener(gui);
-    langagesChecker.addListener(gui);
+    classChecker.addListener(gui.getPluginListener());
+    langagesChecker.addListener(gui.getLangageListener());
   }
 
 }
