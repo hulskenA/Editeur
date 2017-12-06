@@ -11,19 +11,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import fil.coo.plugin.Plugin;
 import fil.coo.plugin.tools.Tools;
-import fil.coo.plugin.tools.PluginFilter;
 import fil.coo.plugin.tools.events.FileEvent;
 import fil.coo.plugin.tools.events.CloseWindowEvent;
 import fil.coo.plugin.tools.events.HelperWindowActionListener;
 import fil.coo.plugin.tools.events.FileListener;
 import fil.coo.plugin.tools.langages.Translator;
-import fil.coo.plugin.tools.langages.LangageFilter;
 import fil.coo.plugin.graphical.util.PluginMenuItemActionListener;
 import fil.coo.plugin.graphical.util.PluginHelpMenuItemActionListener;
 import fil.coo.plugin.exceptions.NoSuchFileLangageException;
 
 @SuppressWarnings("serial")
-public class GUI extends JFrame implements FileListener {
+public class GUI extends JFrame {
 
 	protected JTextArea text = new JTextArea();
 	protected JMenuBar menuBar = new JMenuBar();
@@ -38,6 +36,11 @@ public class GUI extends JFrame implements FileListener {
 	protected JMenuItem zoomMenuItem = new JMenuItem();
 	protected JMenuItem unzoomMenuItem = new JMenuItem();
 	protected JMenuItem helpApp = new JMenuItem();
+	
+	protected FileListener pluginListener;
+	protected FileListener langageListener;
+	
+	
 
 	protected Map<String, JMenuItem> pluginsMenuItem = new HashMap<String, JMenuItem>();
 	protected Map<String, JMenuItem> langagesMenuItem = new HashMap<String, JMenuItem>();
@@ -125,7 +128,11 @@ public class GUI extends JFrame implements FileListener {
 	public GUI() {
 		// Generale de la fenetre
 		super();
-	  this.setLocationRelativeTo(null);
+		
+		pluginListener = new PluginListener();
+		langageListener = new LangageListener();
+		
+		this.setLocationRelativeTo(null);
 		this.setSize(800, 600);
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(java.awt.event.WindowEvent e) {
@@ -144,52 +151,12 @@ public class GUI extends JFrame implements FileListener {
 		this.setVisible(true);
 	}
 
+	public FileListener getPluginListener() {
+		return this.pluginListener;
+	}
 
-  public void fileAdded(FileEvent file) {
-    String name = (String) file.getSource();
-		JMenuItem item;
-		// chercher une autre méthode si possible
-		if (new PluginFilter().accept(new File("resources/" + Tools.PACKAGEFORPLUGIN), name)) {
-	    try {
-	      Class<?> c = Class.forName(Tools.PACKAGEFORPLUGIN + "." + name.substring(0, name.lastIndexOf(".class")));
-	      Plugin plugin = (Plugin) c.getConstructor().newInstance();
-
-				item = new JMenuItem(plugin.getLabel());
-				this.pluginsMenu.add(item);
-				this.pluginsMenuItem.put(name, item);
-				item.addActionListener(new PluginActionMenuItemActionListener(plugin));
-
-				item = new JMenuItem(plugin.getLabel());
-				this.helpMenu.add(item);
-				this.pluginHelperMenuItem.put(name, item);
-				item.addActionListener(new PluginHelpMenuItemActionListener(plugin));
-	    } catch (Exception e) {}
-		}
-
-		else if (new LangageFilter().accept(new File(Tools.PATHFORLANGAGES), name)) {
-			item = new JMenuItem(name);
-			try {
-				item.addActionListener(new changeLangageActionListener());
-				this.langagesSubMenu.add(item);
-				this.langagesMenuItem.put(name, item);
-			} catch	(Exception e) {}
-		}
-  }
-
-  public void fileRemoved(FileEvent file) {
-		String name = ((String) file.getSource());
-
-		if (new PluginFilter().accept(new File("resources/" + Tools.PACKAGEFORPLUGIN), name)) {
-			this.pluginsMenu.remove(this.pluginsMenuItem.get(name));
-			this.pluginsMenuItem.remove(name);
-			this.helpMenu.remove(this.pluginHelperMenuItem.get(name));
-			this.pluginHelperMenuItem.remove(name);
-		}
-
-		else if (new LangageFilter().accept(new File(Tools.PATHFORLANGAGES), name)) {
-			this.langagesSubMenu.remove(this.langagesMenuItem.get(name));
-			this.langagesMenuItem.remove(name);
-		}
+	public FileListener getLangageListener() {
+		return this.langageListener;
 	}
 
 
@@ -237,6 +204,58 @@ public class GUI extends JFrame implements FileListener {
 			}
 
 			GUI.this.initTextFields();
+		}
+	}
+	
+	protected class PluginListener implements FileListener {
+		public void fileAdded(FileEvent file) {
+		    String name = (String) file.getSource();
+			JMenuItem item;
+			
+			try {
+				Class<?> c = Class.forName(Tools.PACKAGEFORPLUGIN + "." + name.substring(0, name.lastIndexOf(".class")));
+				Plugin plugin = (Plugin) c.getConstructor().newInstance();
+
+				item = new JMenuItem(plugin.getLabel());
+				GUI.this.pluginsMenu.add(item);
+				GUI.this.pluginsMenuItem.put(name, item);
+				item.addActionListener(new PluginActionMenuItemActionListener(plugin));
+
+				item = new JMenuItem(plugin.getLabel());
+				GUI.this.helpMenu.add(item);
+				GUI.this.pluginHelperMenuItem.put(name, item);
+				item.addActionListener(new PluginHelpMenuItemActionListener(plugin));
+			} catch (Exception e) {}
+	  }
+
+		public void fileRemoved(FileEvent file) {
+			String name = ((String) file.getSource());
+
+			GUI.this.pluginsMenu.remove(GUI.this.pluginsMenuItem.get(name));
+			GUI.this.pluginsMenuItem.remove(name);
+			GUI.this.helpMenu.remove(GUI.this.pluginHelperMenuItem.get(name));
+			GUI.this.pluginHelperMenuItem.remove(name);		
+		}
+	}
+	
+	protected class LangageListener implements FileListener {
+		public void fileAdded(FileEvent file) {
+			String name = (String) file.getSource();
+			JMenuItem item;
+			
+			item = new JMenuItem(name);
+			try {
+				item.addActionListener(new changeLangageActionListener());
+				GUI.this.langagesSubMenu.add(item);
+				GUI.this.langagesMenuItem.put(name, item);
+			} catch	(Exception e) {}
+		}
+
+		public void fileRemoved(FileEvent file) {
+			String name = ((String) file.getSource());
+
+			GUI.this.langagesSubMenu.remove(GUI.this.langagesMenuItem.get(name));
+			GUI.this.langagesMenuItem.remove(name);
 		}
 	}
 
