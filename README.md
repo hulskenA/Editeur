@@ -103,7 +103,7 @@ Lors de ce projet nous avons structuré nos codes sources selon une certaine arb
 
 Ce procédé à pour but de vous rendre ce diagramme plus facile à lire pour en comprendre son intégralité.
 
-##### 3.1 - Le package "fil.coo.plugin"
+##### 3.1 - Le package `fil.coo.plugin`
 
 ![le package fil.coo.plugin](http://www.plantuml.com/plantuml/png/bLBTIiCm5BxlK-Io8kG1P8pTA0Xp27s2itYQHa-JadCw1gFlRjQQjNCgU9No_QTamm9H-fQA3im7M5Ir8sr2KAT2gOnrr5ldHsW6yMYm4nSygzDmnTW8NUCCq9TZPdfnbDNN7Wc1-4QF1_HooPzn0c_JoSkieHYAmdd1M8F9c_NhD7srUixCUZtMt2k9uBaEiIrPFQXAelFsxl8rIYpA5lP8vJUyGUfUa3bjM59fW25WNlmRlGjLRvedHxYTHZzcBga4_HkhTpY0Fbz9pzmqyNTpsRATL__HNA58al0vvF_LFxflkpSfB3sYJm00)
 
@@ -119,7 +119,7 @@ Comme vous avez pu le remarquer ci-dessus, ce package reste  encore imposant. C'
 
 <br/>
 
-##### 3.2 - Le package "plugins"
+##### 3.2 - Le package `plugins`
 
 ![le package plugins](http://www.plantuml.com/plantuml/png/nPA_QWCn3CPtFuN6XCBHkLFITWdqJ-3k1HIVpcTYoyQIXxRatMiIafRiRT0YVP_Gznkq4iMYDGOZUyyP2qQm0KNMgiNlgjB69kxz9y6zCHdj7Xt1v4DdK-fogCupV1dFIcL2Ix0zImRW3hGWovHAN0WyGDzEibjUkkEA8tt17ON5bJvJoAyaql9-MuTM5uvJlhIq8_DvxXwHMpsbai7772WIg_oW_HNP5SLpUaiwD-kM49iupFJEuMCeLVIM9AUy8Qt7iVUEKMkXV-Kvc1Nns7xz6m00)
 
