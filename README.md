@@ -26,7 +26,7 @@
     + [2.3. La Génération d'éxecutable et son Execution](#23-la-génération-déxecutable-et-son-execution)
 
 3. [Structure du projet](#3-structure-du-projet)
-    + [3.1. Le package "fil.coo.plugin"](#31-le-package-fil-coo-plugin)
+    + [3.1. Le package "fil.coo.plugin"](#31-le-package-filcooplugin)
     + [3.2. Le package "plugins"](#32-le-package-plugins)
 
 4. [Conception des Objets](#4-conception-des-objets)
