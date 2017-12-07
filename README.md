@@ -26,7 +26,8 @@
     + [2.3. La Génération d'éxecutable et son Execution](#23-la-génération-déxecutable-et-son-execution)
 
 3. [Structure du projet](#3-structure-du-projet)
-    + [3.1. Le package ""](#31-le-package)
+    + [3.1. Le package "fil.coo.plugin"](#31-le-package-fil-coo-plugin)
+    + [3.2. Le package "plugins"](#32-le-package-plugins)
 
 4. [Conception des Objets](#4-conception-des-objets)
     + [4.1. Notre code](#41-notre-code)
@@ -96,9 +97,31 @@ $ java -jar target/COO-projet4-1.0-SNAPSHOT.jar
 
 ### 3 - Structure du projet
 
-Lors de ce projet nous avons structuré nos codes sources selon une certaine arborescence. Comme celle-ci est assez fournis, nous allons découper notre schéma UML en plusieurs parties pour vous le présenter.
+Lors de ce projet nous avons structuré nos codes sources selon une certaine arborescence. Comme vous pouvez le devinez par l'UML ci-dessous, celle-ci est assez fournis. Nous allons donc découper notre schéma en plusieurs parties pour vous le présenter.
+
+![les packages](http://www.plantuml.com/plantuml/png/POnB2e0m34JtFKLEu9r2YJKOcc1R4QHtL_nLSJNmviqO-X43WKa971EirTc5UfREgyBg0EoZ7QX1MZnPPZtdxoPCQ0Dxb6lHcf9PRlkxoQgIVZxD5FFptxXW37kczrTrTGC0)
 
 Ce procédé à pour but de vous rendre ce diagramme plus facile à lire pour en comprendre son intégralité.
+
+##### 3.1 - Le package "fil.coo.plugin"
+
+![le package fil.coo.plugin](http://www.plantuml.com/plantuml/png/bLBTIiCm5BxlK-Io8kG1P8pTA0Xp27s2itYQHa-JadCw1gFlRjQQjNCgU9No_QTamm9H-fQA3im7M5Ir8sr2KAT2gOnrr5ldHsW6yMYm4nSygzDmnTW8NUCCq9TZPdfnbDNN7Wc1-4QF1_HooPzn0c_JoSkieHYAmdd1M8F9c_NhD7srUixCUZtMt2k9uBaEiIrPFQXAelFsxl8rIYpA5lP8vJUyGUfUa3bjM59fW25WNlmRlGjLRvedHxYTHZzcBga4_HkhTpY0Fbz9pzmqyNTpsRATL__HNA58al0vvF_LFxflkpSfB3sYJm00)
+
+Comme vous avez pu le remarquer ci-dessus, ce package reste  encore imposant. C'est pourquoi nous avons encore fait le choix de décomposer ce diagramme :
+
++ ***<u>Le sous package `tools`</u> :***
+
+> ![le sous package tools](http://www.plantuml.com/plantuml/png/lLRHQjim57ttLnZsuj8cx7c4KjCvgLcQcDXZR6CCnLPSjR8K92KjA_ttNKcMOpjkryAsfoHNH_SUtNDqbGkfa52xYdhoZh0j4gZoSuga39KIPBrJECuvIyalxB_tl2tAxr29VSKvbVwZv_ikWlUOAGWzjM8KiH8-JVJ9ymXJM6nGxi3ZAQ5uJgJ230j_CedT-lcvINtgRm0G5WKk0WsDz2uJE_4_-7jEYWQqmXNVFm-3ufw7rb89b2jBVfoP8qmcOHrkYZv2HnJ9dto9bIAibD53ZhUAS7OjIyYOGbzOsOMwaxu2ceINdy9PD5skalddMRnu5fPT0MOUBcQ0Jbz6fL6MnOlP7r0lrliOpSElMNmThG00IWst0jQkqNPY4vpLYSwzBbXWL6WX0hiCUxGO2rGPGOQAbrXDbuliPnf_Ym8DcbAE-XJG7gSrZQ1bW55B1OwA3cI8g_62SNXjX9HKMueJkYi9Mwub5djmeubLnj93PlthzcmJibG0gxf4Rj4UZGatJ1XqiqPOBYZNpWiA8dJx077cQqpJS5ri3UanOlrw6drvW_ExEjaxVyDfWLqY6x6rREHGt2hVIX0y0pphvZond8l2TJIWhhKMuEATLWhJnZTjsH2X6TGorOOSqCYYd4v3k5xJmbnVSrVJjQ-l5hfNO-EV7huHJGSJc7fSL51NosM1nYMjsYyL7T7HwR6KZguRJUEv_V8_VDNKp0HYaYB5RRgHdwoM2Un81DzYeGYM9WeFpqv1EDQVa1UZgdlvKvXkyoXRwkbroEcPpOVVWRKLf6Q1fg3fEiErvLRrZcP2mGlG6qqvvH87n-BNm-1IBtyXhE3tzZw_IVZNozwjUXWV-06o5NMjdI9qREBBzIs61-wnkPKcgkzaIx2Zj5UOWXZsD3ss_-fOnuDdjFj-G-2IiX-ZcfStvA8sRDZPNljvRyEFXwjt0Ks4lpw_0G00)
+
++ ***<u>Le sous package `graphical`</u> :***
+
+> ![le sous package graphical](http://www.plantuml.com/plantuml/png/pLPHRvim47xdLrZQIwekQCzJ59LDovggrIfbUvhwuC2LU3KsiarQDSf_tza6HaAWC4tHdh3lFixVVRuxkDA6AbDaFD1FJEHKqOp4d6eT6QFOkZ2mZALOiLSW7u8Wf_4JJO6aYkOR5bDETW4XbRKm30txO1y4BiGVMFZrnvB0Ym6HQFABRkbBg9-PICER1Hu8BiexOX11FfARx_YC551dp40KdwYozZk_TEP7na5RG-LmLWt6ODYs8-T5oaJRlW6UjuoSYXJpqQjYtVB978JTB0rabSEkdLC14kZqnbngwFI-IfbrEWlHwxPPH7dUilkiRvb6uS5Ak43LgcqprG4GtJZzZkQp5PQ7IDyJ_vmVgpm8UOsyGRq1TtWccB5biM304psvGEnMigJssHXDwoN1YfjSk5KAvlv020SyojF1RW_LQEDELBOF7SM6oRem_AuMjIfysnyblWEvSqpU3Zdn-Y4zZ_M9KeUv1_KeLGR91D3lt_ko1M5gUVR1AFhJwULX9xT5-DReYgEtMPPpm2Osll53-cn2i7J2axd_JGuzfm_Wlf32sFbsVjuT9m_W_7c3bGfbkPwVUD_n9zWpOJ0yZO4OARdsR7JOxAoIZ9tgKP8W3Rigk--GHmLJaCbj7x2pLqyfTLvYdOm6NFtHZFeVaZYcT28BkjP6OQaDc86pMLI2v_DnnLnzLkgn63J6wPX1kglexaUqHtbJZGIlov-BV_19646ZvrwAdnk6zoyUffrD4LmXB_mT_0q0)
+
+<br/>
+
+##### 3.2 - Le package "plugins"
+
+![le package plugins](http://www.plantuml.com/plantuml/png/nPA_QWCn3CPtFuN6XCBHkLFITWdqJ-3k1HIVpcTYoyQIXxRatMiIafRiRT0YVP_Gznkq4iMYDGOZUyyP2qQm0KNMgiNlgjB69kxz9y6zCHdj7Xt1v4DdK-fogCupV1dFIcL2Ix0zImRW3hGWovHAN0WyGDzEibjUkkEA8tt17ON5bJvJoAyaql9-MuTM5uvJlhIq8_DvxXwHMpsbai7772WIg_oW_HNP5SLpUaiwD-kM49iupFJEuMCeLVIM9AUy8Qt7iVUEKMkXV-Kvc1Nns7xz6m00)
 
 <!--
 ```puml
@@ -309,8 +332,6 @@ class plugins.PluginToAddSignature implements plugin.Plugin {
 }
 ```
 -->
-
-##### 3.1 - Le package ""
 
 ---
 
