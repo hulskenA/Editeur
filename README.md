@@ -100,11 +100,12 @@ Lors de ce projet nous avons structuré nos codes sources selon une certaine arb
 
 Ce procédé à pour but de vous rendre ce diagramme plus facile à lire pour en comprendre son intégralité.
 
+<!--
 ```puml
 skinparam classAttributeIconSize 0
 
+package plugins {}
 package fil.coo {
-  package plugins {}
   package plugin {
     package exceptions {}
     package graphical {
@@ -133,6 +134,8 @@ interface events.FileListener <<Interface>> {
 
 
 abstract tools.Tools <<Abstract>> {
+  + {static} settingsExceptionMsg : String
+  + {static} langagesExceptionMsg : String
   + {static} PACKAGEFORPLUGIN : String
   + {static} PATHFORLANGAGES : String
   + {static} PATHFORSETTINGS : String
@@ -176,6 +179,11 @@ class tools.FileChecker {
   + fireFileRemoved(String file) : void
 }
 
+class tools.ActionListenerChecker implements java.awt.event.ActionListener {
+  + actionPerformed(e : ActionEvent) : void
+}
+tools.ActionListenerChecker -l-+ tools.FileChecker
+
 class langages.LangageFilter implements java.io.FilenameFilter {
   + accept(dir : File, name : String) : boolean
 }
@@ -203,7 +211,7 @@ class events.HelperWindowActionListener implements java.awt.event.ActionListener
   actionPerformed(e : ActionEvent) : void
 }
 
-class graphical.GUI extends javax.swing.JFrame implements events.FileListener {
+class graphical.GUI extends javax.swing.JFrame {
   # text : JTextArea
   # menuBar : JMenuBar
   # filesMenu : JMenu
@@ -217,6 +225,8 @@ class graphical.GUI extends javax.swing.JFrame implements events.FileListener {
   # zoomMenuItem : JMenuItem
   # unzoomMenuItem : JMenuItem
   # helpApp : JMenuItem
+  # pluginListener : FileListener
+  # langageListener : FileListener
   # langagesMenuItem : Map<String, String>
   # pluginsMenuItem : Map<String, String>
   # pluginHelperMenuItem : Map<String, String>
@@ -224,9 +234,42 @@ class graphical.GUI extends javax.swing.JFrame implements events.FileListener {
   # initTextFields() : void
   # initMenu() : void
   + GUI()
-  + fileAdded(file : FileEvent) : void
-  + fileRemoved(file : FileEvent) : void
+  + getPluginListener() : FileListener
+  + getLangageListener() : FileListener
 }
+
+class graphical.PluginActionMenuItemActionListener extends util.PluginMenuItemActionListener {
+  + PluginActionMenuItemActionListener(plugin : Plugin)
+  + actionPerformed(e : ActionEvent) : void
+}
+graphical.PluginActionMenuItemActionListener --+ graphical.GUI
+
+class graphical.OpenMenuItemActionListener implements java.awt.event.ActionListener {
+  + actionPerformed(e : ActionEvent) : void
+}
+graphical.OpenMenuItemActionListener --+ graphical.GUI
+
+class graphical.FontSizeActionListener implements java.awt.event.ActionListener {
+  + actionPerformed(e : ActionEvent) : void
+}
+graphical.FontSizeActionListener --+ graphical.GUI
+
+class graphical.changeLangageActionListener implements java.awt.event.ActionListener {
+  + actionPerformed(e : ActionEvent) : void
+}
+graphical.changeLangageActionListener --+ graphical.GUI
+
+class graphical.PluginListener implements events.FileListener {
+  + fileAdded(file : FileEvent) : void
+  + fileremoved(file : FileEvent) : void
+}
+graphical.PluginListener --+ graphical.GUI
+
+class graphical.LangageListener implements events.FileListener {
+  + fileAdded(file : FileEvent) : void
+  + fileremoved(file : FileEvent) : void
+}
+graphical.LangageListener --+ graphical.GUI
 
 abstract util.PluginMenuItemActionListener <<Abstract>> implements java.awt.event.ActionListener {
   # plugin : Plugin
@@ -265,6 +308,7 @@ class plugins.PluginToAddSignature implements plugin.Plugin {
   + helpMessage() : String
 }
 ```
+-->
 
 ##### 3.1 - Le package ""
 
