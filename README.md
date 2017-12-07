@@ -41,6 +41,10 @@
 
 Comme il a été précisé précédemment, nous avons dû concevoir un petit éditeur textuel. Sa particularité étant que vous pouvez le faire évoluer dynamiquement avec de nouvelles extensions à tout moment.
 
+Effectivement, vous pourrez faire evoluer les fonctionnalités de ce projet très facilement (que ce soit pour les "plugins" comme pour les langagues). Pour ajouter une nouvelles extensions, il vous suffira juste d'ajouter un nouveau fichier `.class` correspondant à une nouvelle extensions dans le dossier *./resources/plugins/* et si vous voulez en supprimer une, vous aurez juste à supprimer le fichier correspondant dans ce même dossier et tout le comportement de l'application se mettra à jour automatiquement et dynamiquement.
+
+**Rq :** pour ajouter ou supprimer une nouvelle langue, le comportement est le même à la différences que ces fichiers ont des extensions `properties` et se situent dans le dossier *./resources/langages/*
+
 ---
 
 ### 2 - Utilisation
